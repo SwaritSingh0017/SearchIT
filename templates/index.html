@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Search IT – Fast, secure, and minimal web search powered by Google Custom Search.">
+    <meta name="keywords" content="search engine, Google API, custom search, Search IT">
+    <meta name="author" content="Swarit Singh">
+    <title>Search IT - Smarter Searching</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+    <button id="darkToggle" aria-label="Toggle Dark Mode">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+    </button>
+
+
+    <div class="body">
+        <img src="/static/Search IT..png" alt="Background">
+    </div>
+
+    <header>
+        <h1>Search IT</h1>
+        <p class="tagline">Smarter way to search the web</p>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <form method="POST" class="search-form">
+                <input type="text" name="query" placeholder="Search IT..." aria-label="Search input" required />
+                <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </section>
+
+        {% if results %}
+        <section id="results">
+            <h2>Top Results</h2>
+            <ul>
+                {% for result in results %}
+                <li>
+                    <a href="{{ result.link }}" target="_blank" rel="noopener noreferrer">{{ result.title }}</a>
+                    <p>{{ result.snippet }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ 2025 }} Search IT. Made by S.Singh.</p>
+    </footer>
+</body>
+
+<script>
+    const toggleBtn = document.getElementById('darkToggle');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+</script>
+
+
+</html>
