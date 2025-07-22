@@ -1,13 +1,12 @@
 from flask import Flask, render_template, request
-import requests
 from dotenv import load_dotenv
+import requests
 import os
 
 load_dotenv("key.env")
-
 app = Flask(__name__)
 
-# Secure API keys
+# Secure API keys from Render env vars
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 CUSTOM_SEARCH_ENGINE_ID = os.getenv("CUSTOM_SEARCH_ENGINE_ID")
 
@@ -39,8 +38,8 @@ def index():
                 "snippet": item.get("snippet"),
                 "link": item.get("link")
             } for item in data["items"][:5]]
-
     return render_template("index.html", results=results)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
